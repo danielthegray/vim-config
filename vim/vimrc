@@ -1,0 +1,75 @@
+scriptencoding utf-8
+set enc=utf-8
+set fileencoding=utf-8
+set encoding=utf-8
+set fileformats=unix,dos
+set fileformat=unix
+" Text formatting
+set autoindent
+set tabstop=4
+set softtabstop=4
+set noexpandtab
+filetype plugin indent on
+
+" Editing settings
+set nocompatible " no Vi compatibility mode
+set incsearch " search as characters are entered
+set hlsearch  " highlight matches
+" to clear the highlights from the last search
+nnoremap <leader><space> :nohlsearch<CR>
+if has("win32") || has("win64")
+	set undodir=$HOME\\vimfiles\\undo,$TEMP
+	set directory=$HOME\\vimfiles\\directory,$TEMP
+	set backupdir=$HOME\\vimfile\\backup,$TEMP
+	set backupskip=$TEMP
+else
+	set undodir=~/.vim/undo,/tmp
+	set directory=~/.vim/directory,/tmp
+	set backupdir=~/.vim/backup,/tmp
+	set backupskip=/tmp
+endif
+set showcmd
+
+" Visual elements
+syntax enable
+"set showtabline=2
+set ruler
+set number
+set showcmd
+set cursorline
+set lazyredraw
+set wildmenu
+set showmatch
+set listchars=tab:»\ ,nbsp:~,precedes:»,extends:«,trail:_
+set nolist
+
+" maybe map it to comma later...
+"let mapleader=","
+nmap <leader>w :w!<CR>
+nmap <leader>p :set paste!<CR>
+nmap <leader>l :set list!<CR>
+nmap <leader>t :set expandtab!<CR>
+nmap <silent> <leader>n :set number!<CR>
+
+set path+=**
+
+" strips trailing whitespace at the end of files. this
+" is called on buffer write in the autogroup above.
+function! <SID>StripTrailingWhitespaces()
+    " save last search & cursor position
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+" File specific config
+augroup configgroup
+    autocmd!
+    autocmd VimEnter * highlight clear SignColumn
+    autocmd BufWritePre *.txt,*.hs,*.md
+                \:call <SID>StripTrailingWhitespaces()
+    autocmd BufEnter Makefile setlocal noexpandtab
+augroup END
