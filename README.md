@@ -1,16 +1,19 @@
-# Some Gray .dotfiles
+# My Vim config
 
-Repo for my dotfiles, plus a script to install/deploy them.
-I will add more dotfiles as I get around to it.
+Repo for my Vim configuration ifles, plus a script to install/deploy them.
 
 Read and take what you wish! (BSD-licensed)
 
-## Installation
+## Installation on UNIX environment (including Cygwin)
 It should simply be a matter of running the:
 ```bash
 $ ./install.sh
 ```
 file from a Bash prompt.
 
-On UNIX environments I symlink the appropriate paths to the files in this repo,
-but for Cygwin/Windows, I prefer to just copy them over and be done with it.
+## Installation on a Windows environment
+For Windows, only administrators are allowed to create symlinks, so you will need to become an Administrator first.
+Move into the folder and type:
+```bat
+>install
+```
