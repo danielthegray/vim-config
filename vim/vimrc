@@ -18,9 +18,9 @@ set hlsearch  " highlight matches
 " to clear the highlights from the last search
 nnoremap <leader><space> :nohlsearch<CR>
 if has("win32") || has("win64")
-	set undodir=$HOME\\vimfiles\\undo,$TEMP
-	set directory=$HOME\\vimfiles\\directory,$TEMP
-	set backupdir=$HOME\\vimfile\\backup,$TEMP
+	set undodir=$HOME\\.vim\\undo,$TEMP
+	set directory=$HOME\\.vim\\directory,$TEMP
+	set backupdir=$HOME\\.vim\\backup,$TEMP
 	set backupskip=$TEMP
 else
 	set undodir=~/.vim/undo,/tmp

@@ -1,29 +1,24 @@
 #!/bin/bash
 
 initial_dir=`pwd`
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# On some environments (like Cygwin), I might want to copy the files
-# instead of symlinking them, since it doesn't' fully support junctions
-install_type=$1
-
-if [[ -f "~/.vimrc" ]] ; then
-		echo "A .vimrc installation already exists! Doing nothing..."
+if [[ -e "~/.vimrc" ]] ; then
+	echo "A .vimrc file already exists! Doing nothing..."
 else
-		base_dir=`pwd`
-		# TODO: just detect Cygwin
-		if [[ "$install_type" == "copy" ]] ; then
-				cp vim/vimrc $HOME/.vimrc
-				cp vim/vimrc $HOME/_vimrc
-				cp -R vim/vimfiles/after $HOME/.vim/
-		else
-				ln -s $base_dir/vim/vimrc ~/.vimrc
-				ln -s $base_dir/vim/vimfiles ~/.vim
-		fi
-
-		# Create needed directories for backups/undos, which are
-		# declared in the .vimrc
-		mkdir -p $HOME/.vim/backup
-		mkdir -p $HOME/.vim/directory
-		mkdir -p $HOME/.vim/undo
+	echo "Linking ~/.vimrc..."
+	ln -s $base_dir/vim/vimrc ~/.vimrc
 fi
+if [[ -e "~/.vim" ]] ; then
+	echo "A .vim folder already exists! Doing nothing..."
+else
+	echo "Linking ~/.vim..."
+	ln -s $base_dir/vim/vimfiles ~/.vim
+	# Create needed directories for backups/undos, which are
+	# declared in the .vimrc
+	mkdir -p $base_dir/vimfiles/backup
+	mkdir -p $base_dir/vimfiles/directory
+	mkdir -p $base_dir/vimfiles/undo
+fi
+
+cd $initial_dir
