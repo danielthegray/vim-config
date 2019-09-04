@@ -8,6 +8,7 @@ set fileformat=unix
 set autoindent
 set tabstop=4
 set softtabstop=4
+set shiftwidth=4
 set noexpandtab
 filetype plugin indent on
 
@@ -53,23 +54,12 @@ nmap <silent> <leader>n :set number!<CR>
 
 set path+=**
 
-" strips trailing whitespace at the end of files. this
-" is called on buffer write in the autogroup above.
-function! <SID>StripTrailingWhitespaces()
-    " save last search & cursor position
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
-" File specific config
-augroup configgroup
+augroup jenkins
     autocmd!
-    autocmd VimEnter * highlight clear SignColumn
-    autocmd BufWritePre *.txt,*.hs,*.md
-                \:call <SID>StripTrailingWhitespaces()
+	autocmd BufNewFile,BufRead Jenkinsfile setf groovy
+augroup END
+
+augroup makefiles
+    autocmd!
     autocmd BufEnter Makefile setlocal noexpandtab
 augroup END
