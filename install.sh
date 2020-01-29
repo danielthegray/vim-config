@@ -16,9 +16,9 @@ else
 	ln -s $base_dir/vim/vimfiles ~/.vim
 	# Create needed directories for backups/undos, which are
 	# declared in the .vimrc
-	mkdir -p $base_dir/vimfiles/backup
-	mkdir -p $base_dir/vimfiles/directory
-	mkdir -p $base_dir/vimfiles/undo
+	mkdir -p $base_dir/vim/vimfiles/backup
+	mkdir -p $base_dir/vim/vimfiles/directory
+	mkdir -p $base_dir/vim/vimfiles/undo
 fi
 
 cd $initial_dir
