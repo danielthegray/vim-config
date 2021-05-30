@@ -63,3 +63,8 @@ augroup makefiles
     autocmd!
     autocmd BufEnter Makefile setlocal noexpandtab
 augroup END
+
+augroup yamlfiles
+	autocmd!
+	autocmd BufNewFile,BufRead *.yaml,*.yml set filetype=yaml
+augroup END

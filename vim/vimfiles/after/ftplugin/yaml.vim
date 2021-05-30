@@ -4,3 +4,4 @@ set softtabstop=2
 set expandtab
 set list
 set commentstring=#\ %s
+set foldmethod=indent
